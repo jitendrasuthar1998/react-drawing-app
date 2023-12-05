@@ -9,16 +9,7 @@ export function useOnDraw(onDraw) {
   const mouseDownListenerRef = useRef(null);
   const mouseUpListenerRef = useRef(null);
   const prevPointRef = useRef(null);
-  useEffect(() => {
-    return () => {
-      //   if (mouseMoveListenerRef.current) {
-      //     window.removeEventListener("mousemove", mouseMoveListenerRef.current);
-      //   }
-      //   if (mouseUpListenerRef.current) {
-      //     window.removeEventListener("mouseup", mouseUpListenerRef.current);
-      //   }
-    };
-  }, []);
+  
 
   function setCanvasRef(ref) {
     if (!ref) return;
@@ -39,10 +30,11 @@ export function useOnDraw(onDraw) {
   function initMouseMoveListener() {
     const mouseMoveListener = (e) => {
       if (isDrawingRef.current) {
-        console.log({ x: e.clientX, y: e.clientY });
+        
         const point = computePointInCanvas(e.clientX, e.clientY);
-        //   console.log("point is == ", point);
+        
         const ctx = canvasRef.current.getContext("2d");
+        
         if (onDraw) onDraw(ctx, point, prevPointRef.current);
         prevPointRef.current = point;
       }
